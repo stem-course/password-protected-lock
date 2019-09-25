@@ -1,6 +1,6 @@
 /*
 
-Code by: www.munphurid.com
+Code by: 
 M.Hashir
 
 This is a code for password protected digital lock
@@ -8,28 +8,33 @@ This is a code for password protected digital lock
 Hardware:
 - Arduino
 - 16x2 Character LCD
-- 12 Male to female wires
-- 1 resistor 
+- 16 Male to female wires
+- 1 pot
 - 1 4x4 keypad
 - 8 male to male wires
 
-  The circuit:
- * LCD GND pin(pin 1) to GND
- * LCD VCC pin(pin 2) to 5V
- * LCD V0 pin(pin 3) to GND
- * LCD RS pin(pin 4) to digital pin 10
- * LCD R/W pin (pin5) to GND (with resistor if you have BLUE LCD)
- * LCD Enable pin(pin 6) to digital pin 11
- * LCD D4  pin(pin 11) to digital pin A0
- * LCD D5 pin(pin 12) to digital pin A1
- * LCD D6 pin(pin 13) to digital pin A2
- * LCD D7 pin(pin 14) to digital pin A3
- * LCD backlight+ (pin15) to 5V
- *LCD backlight- (pin16) to GND
+ Connections:
  
- * connect all pins of KEYPAD to any of the pins from 0 - 13 and A0 to A5
- 
- 
+ LCD and Arduino
+•	Connect pin 1 of LCD to GND of Arduino board.
+•	Connect pin 2 of LCD to 5V of Arduino board.
+•	Connect pin 3 of LCD to centre leg of pot. Connect one of the remaining legs of pot (potentiometer) to GND of Arduino and the third leg of pot to 5V of Arduino board.
+•	Connect pin 4 of LCD to pin 12 of Arduino board.
+•	Connect pin 5 of LCD to GND of Arduino board.
+•	Connect pin 6 of LCD to pin 11of Arduino board.
+•	Connect pin 11 of LCD to pin 5 of Arduino board.
+•	Connect pin 12 of LCD to pin 4 of Arduino board.
+•	Connect pin 13 of LCD to pin 3 of Arduino board.
+•	Connect pin 14 of LCD to pin 2 of Arduino board.
+•	Connect pin 15 of LCD to pin 5V of Arduino board.
+•	Connect pin 16 of LCD to pin GND of Arduino.
+
+ Keypad and Arduino
+ * When keypad is facing towards you, connect pins of keypad to Arduino in the following sequence
+    A0, A1, A2, A3, 6, 7, 8, 9
+
+Note:
+pin A5 and pin 11 of Arduino can be used as GND for this code.
  */
 
 
@@ -38,13 +43,14 @@ Hardware:
 #include <LiquidCrystal.h>          //library file added
 #include <Keypad.h>                 //library file added
 
+int setpassword = 2580;             //THIS IS THE CORRECT PASSWORD
 
-int RS = 10;                        //connect RS of LCD to this pin
+int RS = 12;                        //connect RS of LCD to this pin
 int E = 11;                         //connect E of LCD to this pin
-int D4 = A0;                        //connect D4 of LCD to this pin
-int D5 = A1;                        //connect D5 of LCD to this pin
-int D6 = A2;                        //connect D6 of LCD to this pin
-int D7 = A3;                        //connect D7 of LCD to this pin
+int D4 = 5;                        //connect D4 of LCD to this pin
+int D5 = 4;                        //connect D5 of LCD to this pin
+int D6 = 3;                        //connect D6 of LCD to this pin
+int D7 = 2;                        //connect D7 of LCD to this pin
 
 const byte ROWS = 4;                //four rows
 const byte COLS = 4;                //three columns
@@ -56,7 +62,7 @@ char keys[ROWS][COLS] = {
   {'*', '0', '#', 'D'}              //row 4 of keypad
 };
 
-byte rowPins[ROWS] = { 2,3,4,5};     //connect to the row pinouts of the keypad -- left most 4 pins
+byte rowPins[ROWS] = { A0,A1,A2,A3};     //connect to the row pinouts of the keypad -- left most 4 pins
 byte colPins[COLS] = { 6,7,8,9 };    //connect to the column pinouts of the keypad  -- right most 4 pins
 
 
@@ -64,11 +70,10 @@ LiquidCrystal lcd(RS,E,D4,D5,D6,D7);
 //rs, e, d4, d5, d6, d7
 
 
-int setpassword = 2580;             //THIS IS THE CORRECT PASSWORD
 int led = 13;                       //we are using pin 13 led to indicate correct password
 int password = 0;                   //do not edit this line
 int gnd =A5;                        //we have made this pin GND
-int gnd2 = 12;                      //we have made this pin GND
+int gnd2 = 11;                      //we have made this pin GND
 
 Keypad keypad = Keypad( makeKeymap(keys), rowPins, colPins, ROWS, COLS );
 //rs, e, d4, d5, d6, d7
