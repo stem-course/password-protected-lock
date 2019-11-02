@@ -46,7 +46,7 @@ pin A5 and pin 11 of Arduino can be used as GND for this code.
 int setpassword = 2580;             //THIS IS THE CORRECT PASSWORD
 
 int RS = 12;                        //connect RS of LCD to this pin
-int E = 11;                         //connect E of LCD to this pin
+int E = 10;                         //connect E of LCD to this pin
 int D4 = 5;                        //connect D4 of LCD to this pin
 int D5 = 4;                        //connect D5 of LCD to this pin
 int D6 = 3;                        //connect D6 of LCD to this pin
