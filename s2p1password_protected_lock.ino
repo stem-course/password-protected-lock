@@ -130,10 +130,10 @@ void loop() {
     lcd.print("**  ");              //do not edit
   }
   else if (password <= 999) {       //do not edit
-    lcd.print("* ");                //do not edit
+    lcd.print("*** ");              //do not edit
   }
   else {                            //do not edit
-    lcd.print("**");                //do not edit
+    lcd.print("****");              //do not edit
   }
 
 
